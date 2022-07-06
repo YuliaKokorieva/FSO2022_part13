@@ -4,10 +4,14 @@ const { PORT } = require('./util/config')
 const { connectToDatabase } = require('./util/db')
 
 const blogsRouter = require('./controllers/blogs')
+const usersRouter = require('./controllers/users')
+const loginRouter = require('./controllers/login')
 
 app.use(express.json())
 
 app.use('/api/blogs', blogsRouter)
+app.use('/api/users', usersRouter)
+app.use('/api/login', loginRouter)
 
 const start = async () => {
   await connectToDatabase()
@@ -21,7 +25,7 @@ const errorHandler = (error, req, res, next) => {
     return res.status(400).send({error: error.message})
   } else if (error.name==="SequelizeDatabaseError") {
     console.log(`printing error: ${error.message}`)
-    return res.status(400).send(`Format error: check the format of likes. Error message: ${error.message}`)
+    return res.status(400).send(`Format error: check the format of likes. Error message: ${error.messagei}`)
   }
 
   next(error)
