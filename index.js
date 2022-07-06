@@ -24,9 +24,8 @@ const errorHandler = (error, req, res, next) => {
   if (error.name==='SequelizeValidationError') {
     return res.status(400).send({error: error.message})
   } else if (error.name==="SequelizeDatabaseError") {
-    console.log(`printing error: ${error.message}`)
-    return res.status(400).send(`Format error: check the format of likes. Error message: ${error.messagei}`)
-  }
+    return res.status(400).send(`Format error: check the format of likes. Error message: ${error.message}`)
+  } 
 
   next(error)
 }
