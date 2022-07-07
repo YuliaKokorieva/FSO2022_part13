@@ -1,5 +1,7 @@
 const router = require('express').Router()
+const jwt = require('jsonwebtoken')
 const {Blog, User} = require('../models')
+const {SECRET} = require('../util/config')
 
 const blogFinder = async (req,res,next) => {
   req.blog = await Blog.findByPk(req.params.id)
@@ -48,11 +50,18 @@ router.get('/:id', blogFinder, async (req, res) => {
   }
 })
 
-router.delete('/:id', blogFinder, async (req, res) => {
+router.delete('/:id', blogFinder, tokenExtractor, async (req, res) => {
+  const user = await User.findByPk(req.decodedToken.id)
   if (req.blog) {
-    await req.blog.destroy()
+
+    if (user.id===req.blog.userId) {    
+        await req.blog.destroy()
+        res.status(204).end()
+      } else {
+        res.status(401).send("You don't have permission to delete this blog").end()
+      }
   }
-  res.status(204).end()
+
 })
 
 router.put('/:id', blogFinder, async (req, res, next) => {
