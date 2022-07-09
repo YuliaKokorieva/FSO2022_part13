@@ -23,23 +23,45 @@ const tokenExtractor = (req, res, next) => {
   next()}
 
 router.get('/', async (req, res) => {
-  const where ={}
 
   if (req.query.search) {
-    where.title = {
-      [Op.substring]: req.query.search
-    }
+    const blogs = await Blog.findAll({
+      attributes: { exclude: ['userId'] },
+      include: {
+        model: User,
+        attributes: ['name']
+      },
+      where: {
+        [Op.or]: {
+          title: {
+            [Op.iLike]: `%${req.query.search}%`
+          },
+          author: {
+            [Op.iLike]: `%${req.query.search}%`
+          }
+        },
+      }
+    })
+    res.json(blogs)
+  } else {
+    const blogs = await Blog.findAll({
+      attributes: { exclude: ['userId'] },
+      include: {
+        model: User,
+        attributes: ['name']
+      }
+    })
+    res.json(blogs)
   }
-  console.log(where)
-  const blogs = await Blog.findAll({
-    attributes: { exclude: ['userId'] },
-    include: {
-      model: User,
-      attributes: ['name']
-    },
-    where
-  })
-  res.json(blogs)
+  // const where ={}
+
+  // if (req.query.search) {
+  //   where.title = {
+  //     [Op.substring]: req.query.search
+  //   }
+  // }
+  // console.log(where)
+  
 })
 
 router.post('/', tokenExtractor, async (req, res, next) => {
