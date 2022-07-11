@@ -47,7 +47,7 @@ router.get('/', async (req, res) => {
     res.json(blogs)
   } else {
     const blogs = await Blog.findAll({
-      attributes: { exclude: ['userId'] },
+      attributes: { exclude: ['userId', 'created_at'] },
       include: {
         model: User,
         attributes: ['name']

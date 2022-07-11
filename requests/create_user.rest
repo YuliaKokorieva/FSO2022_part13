@@ -1,0 +1,11 @@
+POST http://localhost:3001/api/users 
+Content-Type: application/json
+
+{
+    "name": "Anna", "username": "anna@gmail.com"
+}
+
+# {
+#     "name": "Iuliia", "username": "yu@gmail.com"
+# }
+

@@ -1,0 +1,15 @@
+POST http://localhost:3001/api/blogs 
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Inl1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE2NTc1NzI2MzR9.ZYUzZR8i7OhP9mpyF7yCMolkVa64QAIRM4QZ9b0nmO0
+
+# {
+#   "title": "First blogpost",
+#   "author": "John Lennon",
+#   "url": "www"
+# }
+
+{
+  "title": "Second blogpost",
+  "author": "Paul McCartney",
+  "url": "www"
+}
