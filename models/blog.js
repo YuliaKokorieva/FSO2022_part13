@@ -33,21 +33,7 @@ Blog.init({
         } else {
           throw new Error("Year not correct: cannot be earlier than 1991 and later than current year")
         }
-     
       }
-      // min: {
-      //   args: 1991,
-      //   msg: "Cannot be before 1991"
-      // },
-      // max: {
-      //   checkCurrentYear(value) {
-      //     const currentYear = new Date().getFullYear()
-      //     console.log(`current year: ${currentYear}, value: ${value}`)
-      //     if (value>currentYear) {
-      //       throw new Error("Cannot be later than current year")
-      //     } 
-      //   }
-      // }
     }
   }
 }, {
