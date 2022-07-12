@@ -8,8 +8,16 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Inl1Q
 #   "url": "www"
 # }
 
+# {
+#   "title": "Fifth blogpost",
+#   "author": "John Lennon",
+#   "url": "www",
+#   "year" : 2020
+# }
+
 {
-  "title": "Third blogpost",
-  "author": "Ringo Starr",
-  "url": "www"
+  "title": "Sixth blogpost",
+  "author": "Paul McCartney",
+  "url": "www",
+  "year" : 2023
 }
