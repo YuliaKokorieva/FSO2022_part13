@@ -1,6 +1,6 @@
 POST http://localhost:3001/api/blogs 
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Inl1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE2NTc1NzI2MzR9.ZYUzZR8i7OhP9mpyF7yCMolkVa64QAIRM4QZ9b0nmO0
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Inl1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE2NTgwMDYzMjl9.y76RA-_I7u2bFDNMxSuDUk01aJQ2xFXHQYLYZQf0SvQ
 
 # {
 #   "title": "First blogpost",
@@ -16,8 +16,8 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Inl1Q
 # }
 
 {
-  "title": "Sixth blogpost",
-  "author": "Paul McCartney",
+  "title": "Eleventh blogpost",
+  "author": "John Lennonr",
   "url": "www",
-  "year" : 2023
+  "year" : 2021
 }

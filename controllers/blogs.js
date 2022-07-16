@@ -1,12 +1,7 @@
 const router = require('express').Router()
 const { Op } = require('sequelize')
 const {Blog, User} = require('../models')
-const {tokenExtractor} = require('../util/middleware')
-
-const blogFinder = async (req,res,next) => {
-  req.blog = await Blog.findByPk(req.params.id)
-  next()
-}
+const {tokenExtractor, sessionCheck, blogFinder} = require('../util/middleware')
 
 
 router.get('/', async (req, res) => {
@@ -44,11 +39,13 @@ router.get('/', async (req, res) => {
   }
 })
 
-router.post('/', tokenExtractor, async (req, res, next) => {
+router.post('/', tokenExtractor, sessionCheck, async (req, res, next) => {
   try{
-    const user = await User.findByPk(req.decodedToken.id)
-    const blog = await Blog.create({...req.body, userId: user.id})
-    res.json(blog)    
+    if (req.validSession) {
+      const user = await User.findByPk(req.decodedToken.id)
+      const blog = await Blog.create({...req.body, userId: user.id})
+      res.json(blog)          
+    }
   } catch(error) {
     next(error)
   }
@@ -62,18 +59,19 @@ router.get('/:id', blogFinder, async (req, res) => {
   }
 })
 
-router.delete('/:id', blogFinder, tokenExtractor, async (req, res) => {
-  const user = await User.findByPk(req.decodedToken.id)
-  if (req.blog) {
-
-    if (user.id===req.blog.userId) {    
-        await req.blog.destroy()
-        res.status(204).end()
-      } else {
-        res.status(401).send("You don't have permission to delete this blog").end()
-      }
-  }
-
+router.delete('/:id', blogFinder, tokenExtractor, sessionCheck, async (req, res) => {
+  if (req.validSession) {
+    const user = await User.findByPk(req.decodedToken.id)
+    if (req.blog) {
+  
+      if (user.id===req.blog.userId) {    
+          await req.blog.destroy()
+          res.status(204).end()
+        } else {
+          res.status(401).send("You don't have permission to delete this blog").end()
+        }
+    }
+  } 
 })
 
 router.put('/:id', blogFinder, async (req, res, next) => {
