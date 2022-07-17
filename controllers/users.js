@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const { User, Blog } = require('../models')
+const { User, Blog, Session } = require('../models')
 
 router.get('/', async (req, res) => {
   const users = await User.findAll({
@@ -68,13 +68,32 @@ router.put('/:username', async (req, res) => {
       username: req.params.username
     }
   })
-  console.log(`printing user to update: ${user.username}`)
   if (user) {
-    user.username = req.body.username
-    await user.save()
-    res.json(user)
+    if ("username" in req.body) {
+      user.username = req.body.username
+      await user.save()
+      res.json(user)
+    } 
+    if ("disabled" in req.body) {
+      user.disabled = req.body.disabled
+      await user.save()
+      const sessions = await Session.findAll({
+        where: {
+          user_id: user.id
+        }
+      })
+    
+      if (sessions.length>0) {
+        await Session.destroy({
+          where: {
+            user_id: user.id
+          }
+        }) 
+      }
+      res.json(user)
+    }
   } else {
-    res.status(404).end()
+    res.status(404).send('No such user found').end()
   }
 })
 

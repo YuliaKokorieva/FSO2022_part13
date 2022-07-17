@@ -1,0 +1,6 @@
+PUT http://localhost:3001/api/users/yu@gmail.com
+Content-Type: application/json
+
+{
+  "disabled": true
+}

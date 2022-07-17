@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const {SECRET} = require('../util/config')
-const {Blog, User, Session} = require('../models')
+const {Blog, Session} = require('../models')
 
 
 const tokenExtractor = (req, res, next) => {  

@@ -34,6 +34,10 @@ router.post('/', async (request, response) => {
     userId: user.id
   })
 
+  user.disabled = false
+  await user.save()
+
+
   response
     .status(200)
     .send({ token, username: user.username, name: user.name })
